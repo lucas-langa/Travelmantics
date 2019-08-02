@@ -14,7 +14,6 @@
 		android:layout_marginStart="@dimen/text_margin_large"
 		android:layout_marginTop="@dimen/text_margin_standard"
 		android:layout_marginEnd="@dimen/text_margin_standard"
-		android:text="Name"
 		android:hint="@string/title_hint"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +28,6 @@
 		android:layout_marginEnd="@dimen/text_margin_standard"
 		android:inputType="numberDecimal"
 		android:hint="@string/price_hint"
-		android:text="Name"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
@@ -41,7 +39,6 @@
 		android:layout_marginStart="@dimen/text_margin_standard"
 		android:layout_marginTop="@dimen/text_margin_standard"
 		android:layout_marginEnd="@dimen/text_margin_standard"
-		android:text="Name"
 		android:hint="@string/description_hint"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
