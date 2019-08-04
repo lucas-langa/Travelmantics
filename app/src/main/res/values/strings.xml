@@ -4,4 +4,6 @@
 	<string name="price_hint">Price (numbers only)</string>
 	<string name="description_hint">Description</string>
 	<string name="save_menu">save</string>
+	<string name="successful">GG</string>
+	<string name="utterfailure">you tried</string>
 </resources>

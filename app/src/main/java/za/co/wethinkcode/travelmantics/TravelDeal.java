@@ -1,5 +1,7 @@
 package za.co.wethinkcode.travelmantics;
 
+import java.io.Serializable;
+
 public class TravelDeal {
 	private String id;
 	private String title;
@@ -7,9 +9,9 @@ public class TravelDeal {
 	private String price;
 	private String imageUrl;
 
+	public TravelDeal() {}
 
 	public TravelDeal( String title, String description, String price, String imageUrl) {
-//		this.setId(id);
 		this.setTitle(title);
 		this.setDescription(description);
 		this.setPrice(price);
@@ -25,7 +27,7 @@ public class TravelDeal {
 	}
 
 	public String getTitle() {
-		return this.title;
+		return title;
 	}
 
 	public void setTitle(String title) {
@@ -33,7 +35,7 @@ public class TravelDeal {
 	}
 
 	public String getDescription() {
-		return this.description;
+		return description;
 	}
 
 	public void setDescription(String description) {
@@ -41,7 +43,7 @@ public class TravelDeal {
 	}
 
 	public String getPrice() {
-		return this.price;
+		return price;
 	}
 
 	public void setPrice(String price) {
@@ -49,7 +51,7 @@ public class TravelDeal {
 	}
 
 	public String getImageUrl() {
-		return this.imageUrl;
+		return imageUrl;
 	}
 
 	public void setImageUrl(String imageUrl) {
