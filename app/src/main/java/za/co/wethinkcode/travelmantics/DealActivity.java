@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity {
+public class DealActivity extends AppCompatActivity {
 
 	private FirebaseDatabase mFirebaseDatabase;
 	private DatabaseReference mDatabaseReference;
@@ -37,16 +37,15 @@ public class MainActivity extends AppCompatActivity {
 		txtDescription = (EditText)findViewById( R.id.txtDescription );
 		txtPrice = (EditText)findViewById( R.id.txtPrice );
 
-
-//		Intent intent = getIntent();
-//		TravelDeal deal = (TravelDeal) intent.getSerializableExtra("Deal");
-//		if(deal == null) {
-//			deal = new TravelDeal();
-//		}
-//		this.deal = deal;
-//		txtTitle.setText(deal.getTitle());
-//		txtDescription.setText(deal.getDescription());
-//		txtPrice.setText(deal.getPrice());
+		Intent intent = getIntent();
+		TravelDeal deal = (TravelDeal) intent.getSerializableExtra("Deal");
+		if(deal == null) {
+			deal = new TravelDeal();
+		}
+		this.deal = deal;
+		txtTitle.setText(deal.getTitle());
+		txtDescription.setText(deal.getDescription());
+		txtPrice.setText(deal.getPrice());
 	}
 
 	@Override
