@@ -30,8 +30,9 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		mFirebaseDatabase = FirebaseDatabase.getInstance();
-		mDatabaseReference = mFirebaseDatabase.getReference().child("traveldeals");
+		FirebaseUtil.openFbReference("traveldeals");
+		mFirebaseDatabase = FirebaseUtil.mFireDatabase;
+		mDatabaseReference = FirebaseUtil.mDatabaseReference;
 		txtTitle = (EditText)findViewById( R.id.txtTitle);
 		txtDescription = (EditText)findViewById( R.id.txtDescription );
 		txtPrice = (EditText)findViewById( R.id.txtPrice );

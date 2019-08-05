@@ -3,6 +3,8 @@ package za.co.wethinkcode.travelmantics;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -26,36 +28,9 @@ public class ListActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 
-		mFirebaseDatabase = FirebaseDatabase.getInstance();
-		mDatabaseReference = mFirebaseDatabase.getReference().child("traveldeals");
-		mChildListener = new ChildEventListener() {
-			@Override
-			public void onChildAdded( DataSnapshot dataSnapshot,  String s) {
-				TextView tvDeals = (TextView) findViewById( R.id.tvDeals );
-				TravelDeal thing = dataSnapshot.getValue(TravelDeal.class);
-				tvDeals.setText( tvDeals.getText() + "\n" + thing.getTitle() );
-			}
-
-			@Override
-			public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-			}
-
-			@Override
-			public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-			}
-
-			@Override
-			public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-			}
-
-			@Override
-			public void onCancelled(@NonNull DatabaseError databaseError) {
-
-			}
-		};
-		mDatabaseReference.addChildEventListener( mChildListener );
+		RecyclerView rvDeals = findViewById(R.id.rvDeals);
+		final DealAdapter adapter = new DealAdapter();
+		LinearLayoutManager dealsLayoutManager = new LinearLayoutManager( this, LinearLayoutManager.VERTICAL, false);
+		rvDeals.setLayoutManager(dealsLayoutManager);
 	}
 }
