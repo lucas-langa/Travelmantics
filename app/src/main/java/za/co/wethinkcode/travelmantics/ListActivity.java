@@ -28,9 +28,12 @@ public class ListActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 
-		RecyclerView rvDeals = findViewById(R.id.rvDeals);
+		FirebaseUtil.openFbReference("traveldeals");
+		RecyclerView rvDeals = (RecyclerView) findViewById(R.id.rvDeals);
 		final DealAdapter adapter = new DealAdapter();
-		LinearLayoutManager dealsLayoutManager = new LinearLayoutManager( this, LinearLayoutManager.VERTICAL, false);
+		rvDeals.setAdapter(adapter);
+		LinearLayoutManager dealsLayoutManager =
+				new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 		rvDeals.setLayoutManager(dealsLayoutManager);
 	}
 }

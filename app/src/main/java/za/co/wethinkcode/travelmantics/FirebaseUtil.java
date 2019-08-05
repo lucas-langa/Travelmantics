@@ -6,19 +6,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class FirebaseUtil {
-	public static FirebaseDatabase mFireDatabase;
+	public static FirebaseDatabase mFirebaseDatabase;
 	public static DatabaseReference mDatabaseReference;
 	private static FirebaseUtil firebaseUtil;
 	public static ArrayList<TravelDeal> mDeals;
 
 	private FirebaseUtil(){};
 
-	public static void openFbReference( String  ref ) {
-		if ( firebaseUtil == null ) {
+	public static void openFbReference(String ref) {
+		if (firebaseUtil == null) {
 			firebaseUtil = new FirebaseUtil();
-			mFireDatabase = mFireDatabase.getInstance();
-			mDeals = new ArrayList<TravelDeal>();
+			mFirebaseDatabase = FirebaseDatabase.getInstance();
+
 		}
-		mDatabaseReference = mFireDatabase.getReference().child(ref);
+		mDeals = new ArrayList<TravelDeal>();
+		mDatabaseReference = mFirebaseDatabase.getReference().child(ref);
 	}
+
 }

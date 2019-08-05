@@ -31,22 +31,22 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 
 		FirebaseUtil.openFbReference("traveldeals");
-		mFirebaseDatabase = FirebaseUtil.mFireDatabase;
+		mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
 		mDatabaseReference = FirebaseUtil.mDatabaseReference;
 		txtTitle = (EditText)findViewById( R.id.txtTitle);
 		txtDescription = (EditText)findViewById( R.id.txtDescription );
 		txtPrice = (EditText)findViewById( R.id.txtPrice );
 
 
-		Intent intent = getIntent();
-		TravelDeal deal = (TravelDeal) intent.getSerializableExtra("Deal");
-		if(deal == null) {
-			deal = new TravelDeal();
-		}
-		this.deal = deal;
-		txtTitle.setText(deal.getTitle());
-		txtDescription.setText(deal.getDescription());
-		txtPrice.setText(deal.getPrice());
+//		Intent intent = getIntent();
+//		TravelDeal deal = (TravelDeal) intent.getSerializableExtra("Deal");
+//		if(deal == null) {
+//			deal = new TravelDeal();
+//		}
+//		this.deal = deal;
+//		txtTitle.setText(deal.getTitle());
+//		txtDescription.setText(deal.getDescription());
+//		txtPrice.setText(deal.getPrice());
 	}
 
 	@Override

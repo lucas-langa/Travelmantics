@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import static za.co.wethinkcode.travelmantics.FirebaseUtil.openFbReference;
+
 public class DealAdapter extends  RecyclerView.Adapter<DealAdapter.DealViewHolder>{
 	ArrayList<TravelDeal> deals;
 	private FirebaseDatabase mFirebaseDatabase;
@@ -26,10 +28,11 @@ public class DealAdapter extends  RecyclerView.Adapter<DealAdapter.DealViewHolde
 	private ChildEventListener mChildListener;
 
 	public DealAdapter() {
-		FirebaseUtil.openFbReference("traveldeals");
-		mFirebaseDatabase = FirebaseUtil.mFireDatabase;
+		openFbReference("traveldeals");
+		mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
 		mDatabaseReference = FirebaseUtil.mDatabaseReference;
-		deals = FirebaseUtil.mDeals;
+		this.deals = FirebaseUtil.mDeals;
+
 		mChildListener = new ChildEventListener() {
 			@Override
 			public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -65,11 +68,11 @@ public class DealAdapter extends  RecyclerView.Adapter<DealAdapter.DealViewHolde
 		};
 		mDatabaseReference.addChildEventListener(mChildListener);
 	}
-		@NonNull
 		@Override
 		public DealViewHolder onCreateViewHolder (@NonNull ViewGroup parent,int viewType){
 			Context context = parent.getContext();
-			View itemView = LayoutInflater.from(context).inflate(R.layout.rv_row, parent, false);
+			View itemView = LayoutInflater.from(context).inflate(R.layout.rv_row, parent,
+					false);
 			return new DealViewHolder(itemView);
 		}
 
