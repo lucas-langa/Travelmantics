@@ -6,4 +6,5 @@
 	<string name="save_menu">save</string>
 	<string name="successful">GG</string>
 	<string name="utterfailure">you tried</string>
+	<string name="delete_deal">Delete Deal</string>
 </resources>

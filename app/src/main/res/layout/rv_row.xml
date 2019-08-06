@@ -10,40 +10,39 @@
 		android2:id="@+id/imageDeal"
 		android2:layout_width="107dp"
 		android2:layout_height="125dp"
-		android2:layout_marginStart="8dp"
-		android2:layout_marginTop="8dp"
+		android2:layout_marginStart="24dp"
+		android2:layout_marginTop="16dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:srcCompat="@mipmap/ic_launcher" />
 
 	<TextView
 		android2:id="@+id/tvTitle"
-		android2:layout_width="wrap_content"
+		android2:layout_width="150dp"
 		android2:layout_height="wrap_content"
-		android2:layout_marginStart="@dimen/text_margin_standard"
-		android2:layout_marginTop="@dimen/text_margin_standard"
+		android2:layout_marginStart="20dp"
+		android2:layout_marginTop="24dp"
 		android2:textSize="@dimen/title_large"
 		app:layout_constraintStart_toEndOf="@+id/imageDeal"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<TextView
 		android2:id="@+id/tvPrice"
-		android2:layout_width="wrap_content"
-		android2:layout_height="wrap_content"
+		android2:layout_width="151dp"
+		android2:layout_height="20dp"
 		android2:layout_marginStart="@dimen/text_margin_standard"
 		android2:layout_marginTop="@dimen/text_margin_standard"
-		app:layout_constraintStart_toEndOf="@+id/imageDeal"
-		app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-		android2:textSize="@dimen/text_price"
 		android2:textColor="@color/colorAccent"
-		/>
+		android2:textSize="@dimen/text_price"
+		app:layout_constraintStart_toEndOf="@+id/imageDeal"
+		app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
 	<TextView
 		android2:id="@+id/tvDescription"
-		android2:layout_width="wrap_content"
-		android2:layout_height="wrap_content"
-		android2:layout_marginStart="@dimen/text_margin_standard"
-		android2:layout_marginTop="@dimen/text_margin_standard"
+		android2:layout_width="136dp"
+		android2:layout_height="30dp"
+		android2:layout_marginStart="16dp"
+		android2:layout_marginTop="8dp"
 		app:layout_constraintStart_toEndOf="@+id/imageDeal"
 		app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
 </androidx.constraintlayout.widget.ConstraintLayout>
