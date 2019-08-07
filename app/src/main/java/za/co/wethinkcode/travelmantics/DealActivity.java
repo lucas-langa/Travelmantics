@@ -4,19 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.List;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import static za.co.wethinkcode.travelmantics.FirebaseUtil.openFbReference;
 
@@ -28,11 +33,12 @@ public class DealActivity extends AppCompatActivity {
 	EditText txtDescription;
 	EditText txtPrice;
 	private TravelDeal deal;
+	private static final int PICTURE_RESULT = 42;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_deal);
 
 		openFbReference("traveldeals", this);
 		mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
@@ -50,6 +56,17 @@ public class DealActivity extends AppCompatActivity {
 		txtTitle.setText(deal.getTitle());
 		txtDescription.setText(deal.getDescription());
 		txtPrice.setText(deal.getPrice());
+
+		Button btnImage = findViewById(R.id.btnImage);
+		btnImage.setOnClickListener( new View.OnClickListener(){
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+				intent.setType("image/jpeg");
+				intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+				startActivityForResult(intent.createChooser(intent,"Insert Picture"), PICTURE_RESULT);
+			}
+		});
 	}
 
 	@Override
@@ -85,6 +102,40 @@ public class DealActivity extends AppCompatActivity {
 			enableEditText(false);
 		}
 		return ( true );
+	}
+
+	@Override
+	protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == PICTURE_RESULT && resultCode == RESULT_OK) {
+			Uri imageUri = data.getData();
+			final  StorageReference ref = FirebaseUtil.mStorageRef.child(imageUri.getLastPathSegment());
+			UploadTask uploadTask = ref.putFile(imageUri);
+
+			Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+				@Override
+				public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+					if (!task.isSuccessful()) {
+						throw task.getException();
+					}
+
+					// Continue with the task to get the download URL
+					return ref.getDownloadUrl();
+				}
+			}).addOnCompleteListener(new OnCompleteListener<Uri>() {
+				@Override
+				public void onComplete(@NonNull Task<Uri> task) {
+					if (task.isSuccessful()) {
+						Uri downloadUri = task.getResult();
+						deal.setImageUrl(downloadUri.toString());
+					} else {
+						// Handle failures
+						// ...
+					}
+				}
+			});
+
+		}
 	}
 
 	private void saveDeal() {
