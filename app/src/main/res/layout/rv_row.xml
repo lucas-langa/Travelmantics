@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android2="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
 	android2:layout_width="match_parent"
-	android2:layout_height="match_parent">
+	android2:layout_height="wrap_content">
 
 
 	<ImageView
 		android2:id="@+id/imageDeal"
-		android2:layout_width="107dp"
-		android2:layout_height="125dp"
+		android2:layout_width="wrap_content"
+		android2:layout_height="wrap_content"
 		android2:layout_marginStart="24dp"
 		android2:layout_marginTop="16dp"
 		app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +17,7 @@
 
 	<TextView
 		android2:id="@+id/tvTitle"
-		android2:layout_width="150dp"
+		android2:layout_width="wrap_content"
 		android2:layout_height="wrap_content"
 		android2:layout_marginStart="20dp"
 		android2:layout_marginTop="24dp"
@@ -28,8 +27,8 @@
 
 	<TextView
 		android2:id="@+id/tvPrice"
-		android2:layout_width="151dp"
-		android2:layout_height="20dp"
+		android2:layout_width="wrap_content"
+		android2:layout_height="wrap_content"
 		android2:layout_marginStart="@dimen/text_margin_standard"
 		android2:layout_marginTop="@dimen/text_margin_standard"
 		android2:textColor="@color/colorAccent"
@@ -39,8 +38,8 @@
 
 	<TextView
 		android2:id="@+id/tvDescription"
-		android2:layout_width="136dp"
-		android2:layout_height="30dp"
+		android2:layout_width="wrap_content"
+		android2:layout_height="wrap_content"
 		android2:layout_marginStart="16dp"
 		android2:layout_marginTop="8dp"
 		app:layout_constraintStart_toEndOf="@+id/imageDeal"

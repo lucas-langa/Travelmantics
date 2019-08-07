@@ -75,6 +75,15 @@ public class DealActivity extends AppCompatActivity {
 	public boolean	onCreateOptionsMenu( Menu menu ) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate( R.menu.save_menu, menu );
+		if (FirebaseUtil.isAdmin) {
+			menu.findItem(R.id.delete_menu).setVisible(true);
+			menu.findItem(R.id.save_menu).setVisible(true);
+			enableEditText(true);
+		} else {
+			menu.findItem(R.id.delete_menu).setVisible(false);
+			menu.findItem(R.id.save_menu).setVisible(false);
+			enableEditText(false);
+		}
 		return ( true );
 	}
 
@@ -102,11 +111,17 @@ public class DealActivity extends AppCompatActivity {
 		startActivity(intent);
 	}
 
-
 	private void clean() {
 		txtTitle.setText("");
 		txtPrice.setText("");
 		txtDescription.setText("");
 		txtTitle.requestFocus();
 	}
+
+	private void enableEditText(boolean isEnabled) {
+		txtTitle.setEnabled(isEnabled);
+		txtDescription.setEnabled(isEnabled);
+		txtPrice.setEnabled(isEnabled);
+	}
+
 }
