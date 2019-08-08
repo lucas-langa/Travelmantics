@@ -129,8 +129,6 @@ public class DealActivity extends AppCompatActivity {
 						Uri downloadUri = task.getResult();
 						deal.setImageUrl(downloadUri.toString());
 					} else {
-						// Handle failures
-						// ...
 					}
 				}
 			});
