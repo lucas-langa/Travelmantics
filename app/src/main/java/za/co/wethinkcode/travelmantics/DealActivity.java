@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +40,7 @@ public class DealActivity extends AppCompatActivity {
 	private TravelDeal deal;
 	private static final int PICTURE_RESULT = 42;
 	ImageView imageView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,7 +49,7 @@ public class DealActivity extends AppCompatActivity {
 		openFbReference("traveldeals", this);
 		mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
 		mDatabaseReference = FirebaseUtil.mDatabaseReference;
-		txtTitle = (EditText)findViewById( R.id.txtTitle);
+		txtTitle = 	(EditText)findViewById( R.id.txtTitle);
 		txtDescription = (EditText)findViewById( R.id.txtDescription );
 		txtPrice = (EditText)findViewById( R.id.txtPrice );
 		imageView = findViewById(R.id.image);
@@ -60,8 +63,8 @@ public class DealActivity extends AppCompatActivity {
 		txtTitle.setText(deal.getTitle());
 		txtDescription.setText(deal.getDescription());
 		txtPrice.setText(deal.getPrice());
-
 		showImage(deal.getImageUrl());
+
 		Button btnImage = findViewById(R.id.btnImage);
 		btnImage.setOnClickListener( new View.OnClickListener(){
 			@Override
@@ -133,6 +136,9 @@ public class DealActivity extends AppCompatActivity {
 					if (task.isSuccessful()) {
 						String downloadUri = task.getResult().toString();
 						deal.setImageUrl(downloadUri);
+						String pictureName = task.getResult().getPath();
+						Log.d("IMGNME",pictureName);
+						deal.setImageName(pictureName);
 						showImage(downloadUri);
 					} else {
 					}
@@ -158,7 +164,23 @@ public class DealActivity extends AppCompatActivity {
 			Toast.makeText(this, "please save the deal before deleting", Toast.LENGTH_SHORT).show();
 			return;
 		}
+		Log.d("image name", deal.getImageName());
 		mDatabaseReference.child(deal.getId()).removeValue();
+		if(deal.getImageName() != null && !deal.getImageName().isEmpty()) {
+			StorageReference picRef = FirebaseUtil.mStorage.getReference().child(deal.getImageName());
+			picRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+				@Override
+				public void onSuccess(Void aVoid) {
+					Log.d("delete image","image gone" );
+				}
+			}).addOnFailureListener(new OnFailureListener() {
+				@Override
+				public void onFailure(@NonNull Exception e) {
+					Log.d("delete image", e.getMessage());
+				}
+			});
+		}
+
 	}
 
 	private void backToList() {

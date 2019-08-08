@@ -2,10 +2,12 @@ package za.co.wethinkcode.travelmantics;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -27,6 +30,7 @@ public class DealAdapter extends  RecyclerView.Adapter<DealAdapter.DealViewHolde
 	private FirebaseDatabase mFirebaseDatabase;
 	private DatabaseReference mDatabaseReference;
 	private ChildEventListener mChildListener;
+	private ImageView imageDeal;
 
 	public DealAdapter() {
 //		openFbReference("traveldeals", this);
@@ -72,7 +76,6 @@ public class DealAdapter extends  RecyclerView.Adapter<DealAdapter.DealViewHolde
 		@Override
 		public DealViewHolder onCreateViewHolder (@NonNull ViewGroup parent,int viewType){
 
-
 		Context context = parent.getContext();
 			View itemView = LayoutInflater.from(context).inflate(R.layout.rv_row, parent,
 					false);
@@ -100,6 +103,8 @@ public class DealAdapter extends  RecyclerView.Adapter<DealAdapter.DealViewHolde
 				this.tvTitle = itemView.findViewById(R.id.tvTitle);
 				this.tvDescription = itemView.findViewById( R.id.tvDescription );
 				this.tvPrice = itemView.findViewById( R.id.tvPrice );
+				imageDeal = itemView.findViewById(R.id.imageDeal);
+
 				itemView.setOnClickListener(this);
 			}
 
@@ -107,6 +112,7 @@ public class DealAdapter extends  RecyclerView.Adapter<DealAdapter.DealViewHolde
 				this.tvTitle.setText(deal.getTitle());
 				this.tvDescription.setText(deal.getDescription());
 				this.tvPrice.setText(deal.getPrice());
+				showImage(deal.getImageUrl());
 			}
 
 			@Override
@@ -117,6 +123,15 @@ public class DealAdapter extends  RecyclerView.Adapter<DealAdapter.DealViewHolde
 				Intent intent = new Intent(view.getContext(), DealActivity.class);
 				intent.putExtra("Deal", selectedDeal);
 				view.getContext().startActivity( intent );
+			}
+			private  void   showImage( String url ) {
+				if ( url != null && !url.isEmpty()) {
+					Picasso.get()
+							.load(url)
+							.resize(160,160)
+							.centerCrop()
+							.into(imageDeal);
+				}
 			}
 		}
 	}
