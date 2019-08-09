@@ -104,10 +104,12 @@ public class DealActivity extends AppCompatActivity {
 			menu.findItem(R.id.delete_menu).setVisible(true);
 			menu.findItem(R.id.save_menu).setVisible(true);
 			enableEditText(true);
+			findViewById(R.id.btnImage).setEnabled(true);
 		} else {
 			menu.findItem(R.id.delete_menu).setVisible(false);
 			menu.findItem(R.id.save_menu).setVisible(false);
 			enableEditText(false);
+			findViewById(R.id.btnImage).setEnabled(false);
 		}
 		return ( true );
 	}
@@ -166,8 +168,8 @@ public class DealActivity extends AppCompatActivity {
 		}
 		Log.d("image name", deal.getImageName());
 		mDatabaseReference.child(deal.getId()).removeValue();
-		if(deal.getImageName() != null && !deal.getImageName().isEmpty()) {
-			StorageReference picRef = FirebaseUtil.mStorage.getReference().child(deal.getImageName());
+		if(deal.getImageUrl() != null && !deal.getImageUrl().isEmpty()) {
+			StorageReference picRef = FirebaseUtil.mStorage.getReferenceFromUrl(deal.getImageUrl());
 			picRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
 				@Override
 				public void onSuccess(Void aVoid) {
